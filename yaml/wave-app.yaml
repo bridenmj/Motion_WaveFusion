@@ -1,32 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: wave-notebook
+  name: # put deployment name here
   labels:
-    app: wave-notebook
+    app: # put deployment name here
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: wave-notebook
+      app: # put deployment name here
   template:
     metadata:
       labels:
-        app: wave-notebook
+        app: # put deployment name here
     spec:
       containers:
-      - name: wave-notebook
+      - name: # put deployment name here
         image: cschranz/gpu-jupyter
         ports:
         - containerPort: 8888
         resources:
-          limits:
-            memory: 12Gi
-            cpu: "8"
-            nvidia.com/gpu: 1
-          requests:
-            memory: 12Gi
-            cpu: "8"
+          limits: # minimum resources
+            memory: 1Gi
+            cpu: "4"
+            # nvidia.com/gpu: 1 # uncomment to request at least 1 GPU
+          requests: # max resources
+            memory: 1Gi
+            cpu: "4"
         volumeMounts:
         - mountPath: /motiondata
           name: motiondata
@@ -34,6 +34,7 @@ spec:
         - name: motiondata
           persistentVolumeClaim:
             claimName: motiondata
+      # Uncomment block to specify type of GPU
       #affinity:
       #  nodeAffinity:
       #    requiredDuringSchedulingIgnoredDuringExecution:
